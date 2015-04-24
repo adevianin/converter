@@ -8,5 +8,8 @@
 		<service id="app.uploaded.file.validator" class="AppBundle\Services\UploadedFileValidator">
 	    </service>
 
+	    <service id="app.converter.api" class="AppBundle\Services\ConverterApi">
+	    </service>
+
     </services>
 </container>
