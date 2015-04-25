@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConverterController extends Controller
 {
-    const UPLOAD_DIRECTORY = '/uploads';
+    const UPLOAD_DIRECTORY = '/temp';
 
     public function uploadAction(Request $request)
     {
@@ -26,11 +26,14 @@ class ConverterController extends Controller
         if (count($validationErrors) == 0 && $format) {
             $fileName = uniqid();
             $file->move($this->getUploadPath(), $fileName);
+            $tempFilePath = $this->getUploadPath().'/'.$fileName;
             $this->get('app.converter.api')->addConvertTask(
-                file_get_contents($this->getUploadPath().'/'.$fileName),
+                file_get_contents($tempFilePath),
                 $fileName,
                 $format
             );
+
+            unlink($tempFilePath);
 
             $statusCode = 200;
             $data = null;
@@ -41,6 +44,6 @@ class ConverterController extends Controller
 
     private function getUploadPath()
     {
-        return __DIR__.'/../../../web'.self::UPLOAD_DIRECTORY;
+        return __DIR__.'/../../..'.self::UPLOAD_DIRECTORY;
     }
 }
