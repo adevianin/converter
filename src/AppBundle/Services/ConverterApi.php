@@ -2,30 +2,23 @@
 
 namespace AppBundle\Services;
 
-use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class ConverterApi
 {
-    const CONVERT_TASK_QUEUE_NAME = 'tasks';
-    private $connection;
+    private $converter;
 
-    public function setConnection(AMQPConnection $connection)
+    public function __construct($converter)
     {
-        $this->connection = $connection;
+        $this->converter = $converter;
     }
 
-    public function getConnection()
+    public function addConvertTask($fileContent, $fileName, $format)
     {
-        return $this->connection;
-    }
-
-    public function addConvertTask(AMQPMessage $msg)
-    {
-        $channel = $this->connection->channel();
-        $channel->queue_declare(self::CONVERT_TASK_QUEUE_NAME, false, false, false, false);
-        $channel->basic_publish($msg, '', self::CONVERT_TASK_QUEUE_NAME);
-        $channel->close();
+        $this->converter->publish(serialize(array(
+            'fileContent' => $fileContent,
+            'fileName' => $fileName,
+            'format' => $format,
+        )));
     }
 
     public function getConvertStatus($id)

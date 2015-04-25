@@ -3,29 +3,25 @@
 namespace AppBundle\Tests\Services;
 
 use AppBundle\Services\ConverterApi;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class ConverterApiTest extends \PHPUnit_Framework_TestCase
 {
     public function testAddConvertTask()
     {
-        $msg = new AMQPMessage();
+        $fileContent = 'content';
+        $fileName = 'filename';
+        $format = 'mp3';
 
-        $channel = $this->getMockBuilder('PhpAmqpLib\Channel\AMQPChannel')
+        $converterProducer = $this->getMockBuilder('OldSound\RabbitMqBundle\RabbitMq\Producer')
             ->disableOriginalConstructor()
             ->getMock();
-        $channel->expects($this->once())->method('queue_declare')->with(ConverterApi::CONVERT_TASK_QUEUE_NAME);
-        $channel->expects($this->once())->method('basic_publish')->with($msg, '', ConverterApi::CONVERT_TASK_QUEUE_NAME);
-        $channel->expects($this->once())->method('close');
+        $converterProducer->expects($this->once())->method('publish')->with(serialize(array(
+            'fileContent' => $fileContent,
+            'fileName' => $fileName,
+            'format' => $format,
+        )));
 
-        $connection = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $connection->expects($this->any())->method('channel')->will($this->returnValue($channel));
-
-        $converter = new ConverterApi();
-        $converter->setConnection($connection);
-
-        $converter->addConvertTask($msg);
+        $converterApi = new ConverterApi($converterProducer);
+        $converterApi->addConvertTask($fileContent, $fileName, $format);
     }
 }

@@ -9,6 +9,7 @@
 	    </service>
 
 	    <service id="app.converter.api" class="AppBundle\Services\ConverterApi">
+	    	<argument type="service" id="old_sound_rabbit_mq.converter_producer" />
 	    </service>
 
     </services>
