@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c08f78ffc00944cae33c223ce70a2e77",
+    "hash": "a22eb1da999594155457669dedc2a37e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -958,6 +958,59 @@
             "time": "2015-03-09 09:58:04"
         },
         {
+            "name": "oldsound/rabbitmq-bundle",
+            "version": "v1.6.0",
+            "target-dir": "OldSound/RabbitMqBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/videlalvaro/RabbitMqBundle.git",
+                "reference": "a15a4eba67324a24234280ace0afb5fc45605f3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/videlalvaro/RabbitMqBundle/zipball/a15a4eba67324a24234280ace0afb5fc45605f3b",
+                "reference": "a15a4eba67324a24234280ace0afb5fc45605f3b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/yaml": "~2.0",
+                "videlalvaro/php-amqplib": "~2.4.0"
+            },
+            "require-dev": {
+                "symfony/console": "~2.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "OldSound\\RabbitMqBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alvaro Videla"
+                }
+            ],
+            "description": "Integrates php-amqplib with Symfony2 and RabbitMq",
+            "keywords": [
+                "Symfony2",
+                "message",
+                "queue",
+                "rabbitmq"
+            ],
+            "time": "2015-01-28 16:22:31"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1616,21 +1669,20 @@
         },
         {
             "name": "videlalvaro/php-amqplib",
-            "version": "v2.5.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "7989ddce7c4aa6038483d8999b12d3b1f7c81ff9"
+                "reference": "58044157b30853a1a425e26e9ff9895247668ac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/7989ddce7c4aa6038483d8999b12d3b1f7c81ff9",
-                "reference": "7989ddce7c4aa6038483d8999b12d3b1f7c81ff9",
+                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/58044157b30853a1a425e26e9ff9895247668ac3",
+                "reference": "58044157b30853a1a425e26e9ff9895247668ac3",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
-                "ext-mbstring": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -1666,7 +1718,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2015-02-18 18:16:04"
+            "time": "2014-10-06 11:00:55"
         }
     ],
     "packages-dev": [
