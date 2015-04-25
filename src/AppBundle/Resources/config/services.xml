@@ -12,5 +12,8 @@
 	    	<argument type="service" id="old_sound_rabbit_mq.converter_producer" />
 	    </service>
 
+	    <service id="converter.result.consumer" class="AppBundle\Consumers\ConverterResultConsumer">
+	    </service>
+
     </services>
 </container>

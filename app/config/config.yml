@@ -90,3 +90,9 @@ old_sound_rabbit_mq:
         converter:
             connection:       default
             exchange_options: {name: 'tasks', type: fanout}
+    consumers:
+        results:
+            connection:       default
+            exchange_options: {name: 'results', type: fanout}
+            queue_options:    {name: ''}
+            callback:         converter.result.consumer
