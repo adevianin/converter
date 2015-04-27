@@ -42,6 +42,13 @@ class ConverterController extends Controller
         return new JsonResponse($data, $statusCode);
     }
 
+    public function getStatusAction($uid)
+    {
+        $convStatus = $this->get('app.converter.api')->getConvertStatus($uid);
+
+        return new JsonResponse($convStatus, 200);
+    }
+
     private function getUploadPath()
     {
         return __DIR__.'/../../..'.self::UPLOAD_DIRECTORY;

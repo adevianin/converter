@@ -96,3 +96,6 @@ old_sound_rabbit_mq:
             exchange_options: {name: 'results', type: fanout}
             queue_options:    {name: ''}
             callback:         converter.result.consumer
+    rpc_clients:
+        convert_status:
+            connection: default
