@@ -36,7 +36,9 @@ class ConverterController extends Controller
             unlink($tempFilePath);
 
             $statusCode = 200;
-            $data = null;
+            $data = $this->get('router')->generate('status', array(
+                'uid' => $fileName,
+            ));
         }
 
         return new JsonResponse($data, $statusCode);
