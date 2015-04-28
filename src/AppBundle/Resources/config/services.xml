@@ -17,5 +17,9 @@
 	    <service id="converter.result.consumer" class="AppBundle\Consumers\ConverterResultConsumer">
 	    </service>
 
+	    <service id="app.format.validator" class="AppBundle\Services\FormatValidator">
+	    	<argument>%supported_formats%</argument>
+	    </service>
+
     </services>
 </container>
