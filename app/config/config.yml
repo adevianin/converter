@@ -99,3 +99,7 @@ old_sound_rabbit_mq:
     rpc_clients:
         convert_status:
             connection: default
+
+parameters:
+    supported_mime_types: ['audio/mpeg']
+    
