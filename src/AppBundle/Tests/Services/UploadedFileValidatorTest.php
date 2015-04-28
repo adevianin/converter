@@ -17,10 +17,11 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testValidate()
     {
+    	$supportedTypes = ['audio/mpeg'];
         $this->file->expects($this->any())->method('getClientSize')->will($this->returnValue(50));
         $this->file->expects($this->any())->method('getMimeType')->will($this->returnValue('audio/mpeg'));
 
-        $validator = new UploadedFileValidator();
+        $validator = new UploadedFileValidator($supportedTypes);
 
         $validationErrors = $validator->validate($this->file);
 
@@ -29,10 +30,11 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testValidateMimeType()
     {
+    	$supportedTypes = ['audio/mpeg'];
         $this->file->expects($this->any())->method('getClientSize')->will($this->returnValue(50));
         $this->file->expects($this->any())->method('getMimeType')->will($this->returnValue('image/jpeg'));
 
-        $validator = new UploadedFileValidator();
+        $validator = new UploadedFileValidator($supportedTypes);
 
         $validationErrors = $validator->validate($this->file);
 
@@ -41,10 +43,11 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testValidateFileSize()
     {
+    	$supportedTypes = ['audio/mpeg'];
         $this->file->expects($this->any())->method('getClientSize')->will($this->returnValue(50000001));
         $this->file->expects($this->any())->method('getMimeType')->will($this->returnValue('audio/mpeg'));
 
-        $validator = new UploadedFileValidator();
+        $validator = new UploadedFileValidator($supportedTypes);
 
         $validationErrors = $validator->validate($this->file);
 

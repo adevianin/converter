@@ -8,7 +8,12 @@ class UploadedFileValidator
 {
     const MAX_FILE_SIZE = 50000000;
 
-    private static $acceptableMimeTypes = ['audio/mpeg'];//would be great somehow to make this constant
+    private $supportedMimeTypes;
+    
+    public function __construct($supportedMimeTypes)
+	{
+		$this->supportedMimeTypes = $supportedMimeTypes;
+	}
 
     public function validate(UploadedFile $file)
     {
@@ -28,8 +33,8 @@ class UploadedFileValidator
 
     private function validMimeType(UploadedFile $file, &$errors)
     {
-        if (!in_array($file->getMimeType(), self::$acceptableMimeTypes)) {
-            $errors[] = 'supported only '.implode(', ', self::$acceptableMimeTypes).' types. given '.$file->getMimeType();
+        if (!in_array($file->getMimeType(), $this->supportedMimeTypes)) {
+            $errors[] = 'supported only '.implode(', ', $this->supportedMimeTypes).' types. given '.$file->getMimeType();
         }
     }
 }

@@ -19,14 +19,12 @@ class ConverterController extends Controller
         $file = $request->files->get('audio');
 
         $validationErrors = $this->get('app.uploaded.file.validator')->validate($file);
+        $validationErrors = array_merge($validationErrors, $this->get('app.format.validator')->validate($format));
+
         $statusCode = 400;
         $data = $validationErrors;
 
-        if (!$format) {
-            $data[] = 'format parameters is required';
-        }
-
-        if (count($validationErrors) == 0 && $format) {
+        if (count($validationErrors) == 0) {
             $fileName = uniqid();
             $file->move($this->getUploadPath(), $fileName);
             $tempFilePath = $this->getUploadPath().'/'.$fileName;

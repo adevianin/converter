@@ -99,3 +99,7 @@ old_sound_rabbit_mq:
     rpc_clients:
         convert_status:
             connection: default
+
+parameters:
+    supported_formats: ['mp3', 'wav', 'ogg']
+    supported_mime_types: ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'application/ogg']
