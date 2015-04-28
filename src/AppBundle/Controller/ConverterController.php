@@ -5,10 +5,13 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class ConverterController extends Controller
 {
     const UPLOAD_DIRECTORY = '/temp';
+    const RESULT_DIRECTORY = 'results';
 
     public function uploadAction(Request $request)
     {
@@ -36,9 +39,10 @@ class ConverterController extends Controller
             unlink($tempFilePath);
 
             $statusCode = 200;
-            $data = $this->get('router')->generate('status', array(
-                'uid' => $fileName,
-            ));
+            $data = [
+                'progressCheck' => $this->get('router')->generate('status', array('uid' => $fileName)),
+                'download' => $this->get('router')->generate('download', array('fileName' => $fileName.'.'.$format)),
+            ];
         }
 
         return new JsonResponse($data, $statusCode);
@@ -51,8 +55,27 @@ class ConverterController extends Controller
         return new JsonResponse($convStatus, 200);
     }
 
+    public function getConvertedFileAction($fileName)
+    {
+        $filePath = $this->getResultsDirPath().'/'.$fileName;
+        if (!file_exists($filePath)) {
+            throw new NotFoundHttpException();
+        }
+
+        $resp = new Response(file_get_contents($filePath), 200);
+        $resp->headers->set('Content-Type', mime_content_type($filePath));
+        $resp->headers->set('Content-Disposition', 'attachment;');
+
+        return $resp;
+    }
+
     private function getUploadPath()
     {
         return __DIR__.'/../../..'.self::UPLOAD_DIRECTORY;
+    }
+
+    private function getResultsDirPath()
+    {
+        return __DIR__.'/../../../'.self::RESULT_DIRECTORY;
     }
 }

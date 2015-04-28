@@ -7,3 +7,8 @@ status:
   path: /status/{uid}
   defaults: { _controller: AppBundle:Converter:getStatus }
   methods:  [GET]
+
+download:
+  path: /download/{fileName}
+  defaults: { _controller: AppBundle:Converter:getConvertedFile }
+  methods:  [GET]
