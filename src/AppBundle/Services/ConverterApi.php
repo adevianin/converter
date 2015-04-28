@@ -29,8 +29,4 @@ class ConverterApi
 
         return $replies['convert_status'];
     }
-
-    public function getConvertedFile($id)
-    {
-    }
 }
