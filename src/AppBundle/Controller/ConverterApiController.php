@@ -39,7 +39,8 @@ class ConverterApiController extends Controller
             $statusCode = 200;
             $data = [
                 'progressCheck' => $this->get('router')->generate('status', array('uid' => $fileName)),
-                'download' => $this->get('router')->generate('download', array('fileName' => $fileName.'.'.$format)),
+                'progressCheckPage' => $this->get('router')->generate('status', array('uid' => $fileName)),
+                'download' => $this->get('router')->generate('download', array('fileName' => $fileName.'.'.$format))
             ];
         }
 
