@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AppBundle/Resources/config/services.xml" }
 
 framework:
     #esi:             ~
@@ -71,3 +72,34 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     '127.0.0.1'
+            port:     5672
+            user:     'guest'
+            password: 'guest'
+            vhost:    '/'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    producers:
+        converter:
+            connection:       default
+            exchange_options: {name: 'tasks', type: fanout}
+    consumers:
+        results:
+            connection:       default
+            exchange_options: {name: 'results', type: fanout}
+            queue_options:    {name: ''}
+            callback:         converter.result.consumer
+    rpc_clients:
+        convert_status:
+            connection: default
+
+parameters:
+    supported_formats: ['mp3', 'wav', 'ogg']
+    supported_mime_types: ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'application/ogg']

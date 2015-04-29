@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		window.onload = function(){
+		
+			var interval = setInterval(function(){
+				$.get('{{ path('status', {'uid': uid}) }}', null, function(progress){
+					$('#progress').text(progress);
+					if(progress == 100){
+						clearInterval(interval);
+					}
+				});
+			}, 2000);
+		}
+	</script>      	
+{% endblock %}
+
+{% block body %}
+    <span>status: </span>
+    <span id="progress">0</span>
+{% endblock %}
