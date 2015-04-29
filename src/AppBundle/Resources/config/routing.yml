@@ -1,4 +1,4 @@
-status:
+status_page:
   path: /status/{uid}
   defaults: { _controller: AppBundle:Converter:getStatus }
   methods:  [GET]
