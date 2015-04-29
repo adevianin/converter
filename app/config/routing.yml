@@ -1,2 +1,6 @@
+api:
+    resource: "@AppBundle/Resources/config/routingApi.yml"
+    prefix: /api
+
 app:
     resource: "@AppBundle/Resources/config/routing.yml"
